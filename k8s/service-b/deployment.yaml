@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-b-deployment
+  namespace: microservices
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: service-b
+  template:
+    metadata:
+      labels:
+        app: service-b
+    spec:
+      containers:
+        - name: service-b
+          image: dheerajkr7866/microservice-deployment-service-b:latest
+          ports:
+            - containerPort: 3000

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: service-a
-          image: <your-dockerhub-username>/service-a:latest
+          image: dheerajkr7866/microservice-deployment-service-a:2
           ports:
             - containerPort: 5000
           readinessProbe:
