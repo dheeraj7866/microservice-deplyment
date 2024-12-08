@@ -1,0 +1,12 @@
+{
+    "name": "service-b",
+    "version": "1.0.0",
+    "description": "Service B - Node.js Express Application",
+    "main": "app.js",
+    "scripts": {
+      "start": "node app.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1"
+    }
+  }
