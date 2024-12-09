@@ -3,19 +3,20 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
         KUBECONFIG = credentials('kubeconfig-file')
-        DOCKERHUB_USERNAME = 'your-dockerhub-username'
+        DOCKERHUB_USERNAME = 'dheerajkr7866'
+        IMAGE_TAG = "${env.BUILD_ID}"
     }
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/your-repo-url.git'
-            }
-        }
+        // stage('Clone Repository') {
+        //     steps {
+        //         git 'https://github.com/your-repo-url.git'
+        //     }
+        // }
         stage('Build Docker Images') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKERHUB_USERNAME}/service-a:latest ./service-a'
-                    sh 'docker build -t ${DOCKERHUB_USERNAME}/service-b:latest ./service-b'
+                    sh 'docker build -t ${DOCKERHUB_USERNAME}/microservice-deployment-service-a:${IMAGE_TAG} ./app/service-a/'
+                    sh 'docker build -t ${DOCKERHUB_USERNAME}/microservice-deployment-service-b:${IMAGE_TAG} ./app/service-b/'
                 }
             }
         }
@@ -23,8 +24,8 @@ pipeline {
             steps {
                 script {
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_USERNAME --password-stdin'
-                    sh 'docker push ${DOCKERHUB_USERNAME}/service-a:latest'
-                    sh 'docker push ${DOCKERHUB_USERNAME}/service-b:latest'
+                    sh 'docker push ${DOCKERHUB_USERNAME}/microservice-deployment-service-a:${IMAGE_TAG}'
+                    sh 'docker push ${DOCKERHUB_USERNAME}/microservice-deployment-service-b:${IMAGE_TAG}'
                 }
             }
         }
