@@ -12,8 +12,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: service-a.dheeraj.com
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
