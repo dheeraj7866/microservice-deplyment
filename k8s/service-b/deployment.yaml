@@ -18,5 +18,5 @@ spec:
           image: dheerajkr7866/microservice-deployment-service-b:latest
           ports:
             - containerPort: 3000
-        imagePullSecrets:
-          - name: dockeregcred
+      imagePullSecrets:
+        - name: dockeregcred
