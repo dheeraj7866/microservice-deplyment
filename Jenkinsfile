@@ -5,6 +5,7 @@ pipeline {
         KUBECONFIG = credentials('kubeconfig-file')
         DOCKERHUB_USERNAME = 'dheerajkr7866'
         IMAGE_TAG = "${env.BUILD_ID}"
+        K8S_NAMESPACE="microservices"
     }
     stages {
         // stage('Clone Repository') {
@@ -38,6 +39,22 @@ pipeline {
                         sh 'kubectl apply -f k8s/service-b/deployment.yaml'
                         sh 'kubectl apply -f k8s/service-b/service.yaml'
                     }
+                }
+            }
+        }
+        stage('Update Kubernetes Deployment on EKS') {
+            steps {
+                script {
+                    // Set up kubeconfig to interact with EKS cluster
+                    sh '''
+                    aws eks --region us-east-1 update-kubeconfig --name my-cluster
+                    '''
+                    
+                    // Update the deployment with the new Docker image
+                    sh """
+                    kubectl set image deployment/service-a-deployment service-a=${DOCKERHUB_USERNAME}/microservice-deployment-service-a:${IMAGE_TAG} -n ${K8S_NAMESPACE}
+                    kubectl rollout status deployment/service-a-deployment -n ${K8S_NAMESPACE}
+                    """
                 }
             }
         }

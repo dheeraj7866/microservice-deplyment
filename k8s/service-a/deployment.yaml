@@ -18,6 +18,8 @@ spec:
           image: dheerajkr7866/microservice-deployment-service-a:2
           ports:
             - containerPort: 5000
+        imagePullSecrets:
+        - name: dockeregcred
           readinessProbe:
             httpGet:
               path: /status
