@@ -30,18 +30,18 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
-            steps {
-                withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: 'https://<your-cluster-endpoint>']) {
-                    script {
-                        sh 'kubectl apply -f k8s/service-a/deployment.yaml'
-                        sh 'kubectl apply -f k8s/service-a/service.yaml'
-                        sh 'kubectl apply -f k8s/service-b/deployment.yaml'
-                        sh 'kubectl apply -f k8s/service-b/service.yaml'
-                    }
-                }
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         withKubeConfig([credentialsId: 'kubeconfig-file', serverUrl: 'https://<your-cluster-endpoint>']) {
+        //             script {
+        //                 sh 'kubectl apply -f k8s/service-a/deployment.yaml'
+        //                 sh 'kubectl apply -f k8s/service-a/service.yaml'
+        //                 sh 'kubectl apply -f k8s/service-b/deployment.yaml'
+        //                 sh 'kubectl apply -f k8s/service-b/service.yaml'
+        //             }
+        //         }
+        //     }
+        // }
         stage('Update Kubernetes Deployment on EKS') {
             steps {
                 script {
