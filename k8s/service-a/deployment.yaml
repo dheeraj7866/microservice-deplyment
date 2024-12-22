@@ -19,16 +19,4 @@ spec:
           ports:
             - containerPort: 5000
         imagePullSecrets:
-        - name: dockeregcred
-          readinessProbe:
-            httpGet:
-              path: /status
-              port: 5000
-            initialDelaySeconds: 3
-            periodSeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /status
-              port: 5000
-            initialDelaySeconds: 10
-            periodSeconds: 10
+          - name: dockeregcred
