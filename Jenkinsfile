@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')
-        KUBECONFIG = credentials('kubeconfig-file')
+        // KUBECONFIG = credentials('kubeconfig-file')
         DOCKERHUB_USERNAME = 'dheerajkr7866'
         IMAGE_TAG = "${env.BUILD_ID}"
         K8S_NAMESPACE="microservices"
