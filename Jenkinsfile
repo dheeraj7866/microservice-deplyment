@@ -47,7 +47,7 @@ pipeline {
                 script {
                     // Set up kubeconfig to interact with EKS cluster
                     sh '''
-                    aws eks --region us-east-1 update-kubeconfig --name my-cluster
+                    aws eks --region us-east-1 update-kubeconfig --name microservice-deployment
                     '''
                     
                     // Update the deployment with the new Docker image
