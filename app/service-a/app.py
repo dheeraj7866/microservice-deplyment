@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return jsonify({"message": "Welcome to Service A - Flask App"})
+    return jsonify({"message": "Welcome to Service A - Flask App new content added"})
 
 @app.route("/status")
 def status():
