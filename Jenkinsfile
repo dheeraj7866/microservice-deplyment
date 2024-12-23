@@ -54,6 +54,9 @@ pipeline {
                     sh """
                     kubectl set image deployment/service-a-deployment service-a=${DOCKERHUB_USERNAME}/microservice-deployment-service-a:${IMAGE_TAG} -n ${K8S_NAMESPACE}
                     kubectl rollout status deployment/service-a-deployment -n ${K8S_NAMESPACE}
+
+                    kubectl set image deployment/service-b-deployment service-b=${DOCKERHUB_USERNAME}/microservice-deployment-service-b:${IMAGE_TAG} -n ${K8S_NAMESPACE}
+                    kubectl rollout status deployment/service-b-deployment -n ${K8S_NAMESPACE}
                     """
                 }
             }
