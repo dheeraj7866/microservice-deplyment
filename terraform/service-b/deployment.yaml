@@ -1,0 +1,46 @@
+# Namespace Resource
+resource "kubernetes_namespace" "microservices" {
+  metadata {
+    name = "microservices"
+  }
+}
+
+# Deployment Resource
+resource "kubernetes_deployment" "service_b" {
+  metadata {
+    name      = "service-b-deployment"
+    namespace = kubernetes_namespace.microservices.metadata[0].name
+  }
+
+  spec {
+    replicas = 3
+    selector {
+      match_labels = {
+        app = "service-b"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "service-b"
+        }
+      }
+
+      spec {
+        container {
+          name  = "service-b"
+          image = "dheerajkr7866/microservice-deployment-service-b:latest"
+
+          port {
+            container_port = 3000
+          }
+        }
+
+        image_pull_secrets {
+          name = "dockeregcred"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+# Service Resource
+resource "kubernetes_service" "service_b" {
+  metadata {
+    name      = "service-b"
+    namespace = kubernetes_namespace.microservices.metadata[0].name
+  }
+
+  spec {
+    selector = {
+      app = "service-b"
+    }
+
+    port {
+      protocol    = "TCP"
+      port        = 80
+      target_port = 3000
+    }
+
+    type = "ClusterIP"
+  }
+}

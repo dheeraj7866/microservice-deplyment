@@ -1,0 +1,38 @@
+resource "kubernetes_deployment" "service_a" {
+  metadata {
+    name      = "service-a-deployment"
+    namespace = "microservices"
+  }
+
+  spec {
+    replicas = 3
+    selector {
+      match_labels = {
+        app = "service-a"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "service-a"
+        }
+      }
+
+      spec {
+        container {
+          name  = "service-a"
+          image = "dheerajkr7866/microservice-deployment-service-a:2"
+
+          port {
+            container_port = 5000
+          }
+        }
+
+        image_pull_secrets {
+          name = "dockeregcred"
+        }
+      }
+    }
+  }
+}

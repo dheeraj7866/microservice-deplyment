@@ -1,15 +1,20 @@
 resource "kubernetes_service" "service_a" {
   metadata {
     name      = "service-a"
-    namespace = var.namespace
+    namespace = "microservices"
   }
+
   spec {
     selector = {
       app = "service-a"
     }
+
     port {
+      protocol    = "TCP"
       port        = 80
       target_port = 5000
     }
+
+    type = "ClusterIP"
   }
 }
