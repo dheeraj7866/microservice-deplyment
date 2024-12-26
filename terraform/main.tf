@@ -14,22 +14,22 @@ data "aws_eks_cluster_auth" "cluster" {
 
 # VPC Module
 module "vpc" {
-  source  = "./eks/vpc"
-  cidr    = var.vpc_cidr
-  azs     = var.availability_zones
+  source          = "./modules/vpc"
+  cidr            = var.vpc_cidr
+  azs             = var.availability_zones
   public_subnets  = var.public_subnets
   private_subnets = var.private_subnets
 }
 
 # IAM Module
 module "iam" {
-  source  = "./eks/iam"
+  source     = "./modules/iam"
   create_eks = true
 }
 
 # EKS Module
 module "eks" {
-  source          = "./eks/eks-cluster"
+  source          = "./modules/eks"
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
   vpc_id          = module.vpc.vpc_id
@@ -46,20 +46,20 @@ module "eks" {
 
 # Namespace Module
 module "namespace" {
-  source         = "./namespace"
+  source         = "./modules/namespace"
   namespace_name = "microservices"
 }
 
 # Service A Module
 module "service_a" {
-  source         = "./eks/service-a"
+  source         = "./modules/service-a"
   namespace_name = module.namespace.metadata[0].name
   image_tag      = var.service_a_image_tag
 }
 
 # Service B Module
 module "service_b" {
-  source         = "./eks/service-b"
+  source         = "./modules/service-b"
   namespace_name = module.namespace.metadata[0].name
   image_tag      = var.service_b_image_tag
 }

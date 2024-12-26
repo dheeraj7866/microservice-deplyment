@@ -1,64 +1,76 @@
+# AWS Region
 variable "aws_region" {
-  description = "AWS region for deployment"
+  description = "The AWS region where the resources will be created"
   type        = string
-  default     = "us-east-1"
+  default     = "us-west-2"
 }
 
+# VPC CIDR block
 variable "vpc_cidr" {
-  description = "CIDR block for the VPC"
+  description = "The CIDR block for the VPC"
   type        = string
   default     = "10.0.0.0/16"
 }
 
+# Availability Zones
 variable "availability_zones" {
-  description = "Availability zones for the VPC"
+  description = "The availability zones to use for the subnets"
   type        = list(string)
-  default     = ["us-east-1a", "us-east-1b"]
+  default     = ["us-west-2a", "us-west-2b", "us-west-2c"]
 }
 
+# Public subnets CIDR blocks
 variable "public_subnets" {
-  description = "Public subnets for the VPC"
+  description = "CIDR blocks for the public subnets"
   type        = list(string)
   default     = ["10.0.1.0/24", "10.0.2.0/24"]
 }
 
+# Private subnets CIDR blocks
 variable "private_subnets" {
-  description = "Private subnets for the VPC"
+  description = "CIDR blocks for the private subnets"
   type        = list(string)
   default     = ["10.0.3.0/24", "10.0.4.0/24"]
 }
 
+# EKS Cluster Name
 variable "cluster_name" {
-  description = "Name of the EKS cluster"
+  description = "The name of the EKS cluster"
   type        = string
+  default     = "my-eks-cluster"
 }
 
+# EKS Cluster version
 variable "cluster_version" {
-  description = "EKS cluster version"
+  description = "The version of the EKS cluster"
   type        = string
-  default     = "1.27"
+  default     = "1.21"
 }
 
+# Node group size
 variable "node_group_size" {
-  description = "Desired capacity for the EKS worker nodes"
+  description = "The desired number of nodes in the worker group"
   type        = number
   default     = 2
 }
 
+# Instance type for the worker nodes
 variable "node_instance_type" {
-  description = "Instance type for EKS worker nodes"
+  description = "The instance type to use for worker nodes"
   type        = string
   default     = "t3.medium"
 }
 
+# Service A Docker image tag
 variable "service_a_image_tag" {
-  description = "Docker image tag for service A"
+  description = "The image tag for Service A"
   type        = string
   default     = "latest"
 }
 
+# Service B Docker image tag
 variable "service_b_image_tag" {
-  description = "Docker image tag for service B"
+  description = "The image tag for Service B"
   type        = string
   default     = "latest"
 }
